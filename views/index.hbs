@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::selection {
+            background-color: #c3e9f9;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            width: 100%;
+            height: 100vh;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .main {
+            width: 70%;
+            height: fit-content;
+            min-height: 500px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0px;
+        }
+
+        .head {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #333;
+            grid-column: 1/3;
+            padding: 20px;
+            background-color: #4caf50;
+            background-color: rgb(165, 16, 234);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 44px;
+            color: #fff;
+        }
+
+
+        .Input {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+
+
+        .Output {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .Output label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .Output div,
+        .Input div {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .Output div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .Input div {
+            margin-bottom: 20px;
+        }
+
+        #enteredWordOutput {
+            background-color: #f0f8ff;
+            /* AliceBlue */
+            font-size: 17px;
+        }
+
+        #categoryOutput {
+            background-color: #f0e68c;
+            /* Khaki */
+        }
+
+        #definitionOutput {
+            background-color: #e6e6fa;
+            /* Lavender */
+        }
+
+
+
+        .info {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        .info label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+            display: block;
+        }
+
+        .info div {
+            font-size: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f0f8ff;
+            /* AliceBlue */
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .main {
+                grid-template-columns: 1fr;
+                height: 100%;
+                width: 100%;
+                border-radius: 0;
+            }
+
+            .head {
+                grid-column: 1/2;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+            .Input {
+                grid-column: 1/2;
+            }
+
+            .Output {
+                grid-column: 1/2;
+            }
+
+            label {
+                font-size: 20px;
+            }
+
+            input[type="submit"] {
+                font-size: 20px;
+            }
+
+            #enteredWordOutput {
+                font-size: 20px;
+            }
+
+            * {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="head">
+            <h1>Dictionary App</h1>
+        </div>
+
+        <div class="Input">
+            <form action="/word" method="post">
+                <div>
+                    <label for="wordInput">Enter a word</label>
+                    <input type="text" name="word" id="enteredWordOutput" value="{{word}}">
+                    <br>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+            <form action="/reset" method="post">
+                <input type="submit" value="Reset">
+            </form>
+
+            <br><br>
+            <div class="info">
+                <label for="">Note</label>
+                <div>Enter a Word and click on submit. You will see the respective category and definition of that word.
+                </div>
+            </div>
+        </div>
+        <div class="Output">
+            <div>
+                <label for="enteredWord">Entered word</label>
+                <div id="enteredWordOutput">
+                    {{#if word}}
+                    {{word}}
+                    {{else}}
+                    Your Entered Word
+                    {{/if}}
+                </div>
+            </div>
+
+            <div>
+                <label for="category">Category</label>
+                <div id="categoryOutput">
+                    {{#if category}}
+                    {{category}}
+                    {{else}}
+                    Catagory Of the Word
+                    {{/if}}
+                </div>
+            </div>
+
+            <div>
+                <label for="definition">Definition</label>
+                <div id="definitionOutput">
+                    {{#if definition}}
+                    {{definition}}
+                    {{else}}
+                    Defination of the Word
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{#if err}}
+    <script>
+        alert("{{err}}");
+    </script>
+    {{/if}}
+
+
+    <script>
+        function handleOffline() {
+            alert("You are offline. Please check your internet connection.The Web App Does not work without Internet");
+            // Perform additional actions for offline state if needed
+        }
+
+        // Check the internet connection on page load
+        if (!navigator.onLine) {
+            handleOffline();
+        }
+
+        // Use the following event listener to react to changes in the internet connection status
+        window.addEventListener('offline', handleOffline);
+    </script>
+</body>
+
+</html>
