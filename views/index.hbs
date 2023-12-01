@@ -219,10 +219,10 @@
             <form action="/word" method="post">
                 <div>
                     <label for="wordInput">Enter a word</label>
-                    <input type="text" name="word" id="enteredWordOutput" value="{{word}}">
+                    <input type="text" name="word" id="enteredWordOutput" value="{{word}}" onkeypress="return onlyAlphabets(event)">
                     <br>
                 </div>
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit" onclick="Scroll()">
             </form>
             <form action="/reset" method="post">
                 <input type="submit" value="Reset">
@@ -258,8 +258,8 @@
                 </div>
             </div>
 
-            <div>
-                <label for="definition">Definition</label>
+            <div id="mean">
+                <label for="definition">Meaning</label>
                 <div id="definitionOutput">
                     {{#if definition}}
                     {{definition}}
@@ -290,6 +290,27 @@
 
         // Use the following event listener to react to changes in the internet connection status
         window.addEventListener('offline', handleOffline);
+    </script>
+
+    <script>
+        function Scroll(){
+            var element = document.getElementById("mean");
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+    <script>
+        function onlyAlphabets(event) {
+            var key = event.key;
+            // Regular expression to allow only alphabets
+            var regex = /^[a-zA-Z]+$/;
+            
+            // Allow only alphabets and prevent the default behavior for other keys
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
     </script>
 </body>
 
