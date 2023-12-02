@@ -219,7 +219,8 @@
             <form action="/word" method="post">
                 <div>
                     <label for="wordInput">Enter a word</label>
-                    <input type="text" name="word" id="enteredWordOutput" value="{{word}}" onkeypress="return onlyAlphabets(event)">
+                    <input type="text" name="word" id="enteredWordOutput" value="{{word}}"
+                        oninput="onlyAlphabets(this)">
                     <br>
                 </div>
                 <input type="submit" value="Submit" onclick="Scroll()">
@@ -293,25 +294,41 @@
     </script>
 
     <script>
-        function Scroll(){
+        function Scroll() {
             var element = document.getElementById("mean");
-            element.scrollIntoView({ behavior: 'smooth' });
+            element.scrollTo({ behavior: 'smooth' });
         }
     </script>
 
+    {{!--
     <script>
         function onlyAlphabets(event) {
             var key = event.key;
-            // Regular expression to allow only alphabets
             var regex = /^[a-zA-Z]+$/;
-            
-            // Allow only alphabets and prevent the default behavior for other keys
+
             if (!regex.test(key)) {
                 event.preventDefault();
                 return false;
             }
         }
+    </script> --}}
+    <script>
+        function onlyAlphabets(input) {
+            // Regular expression to allow only alphabets
+            var regex = /^[a-zA-Z]+$/;
+
+            // Get the input value
+            var value = input.value;
+
+            // Test the value against the regex
+            if (!regex.test(value)) {
+                // Remove non-alphabetic characters
+                input.value = value.replace(/[^a-zA-Z]/g, '');
+            }
+        }
     </script>
+
+
 </body>
 
 </html>
