@@ -216,7 +216,7 @@
         </div>
 
         <div class="Input">
-            <form action="/word" method="post" onsubmit="Scroll()">
+            <form action="/word" method="post">
                 <div>
                     <label for="wordInput">Enter a word</label>
                     <input type="text" name="word" id="enteredWordOutput" value="{{word}}"
@@ -294,28 +294,6 @@
     </script>
 
     <script>
-        function Scroll() {
-            var element = document.getElementById("mean");
-            if (element) {
-                // Use scrollIntoView for smoother scrolling
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    </script>
-
-    {{!--
-    <script>
-        function onlyAlphabets(event) {
-            var key = event.key;
-            var regex = /^[a-zA-Z]+$/;
-
-            if (!regex.test(key)) {
-                event.preventDefault();
-                return false;
-            }
-        }
-    </script> --}}
-    <script>
         function onlyAlphabets(input) {
             // Regular expression to allow only alphabets
             var regex = /^[a-zA-Z]+$/;
@@ -331,7 +309,5 @@
         }
     </script>
 
-
 </body>
-
 </html>
