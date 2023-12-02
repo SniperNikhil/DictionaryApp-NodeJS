@@ -216,14 +216,14 @@
         </div>
 
         <div class="Input">
-            <form action="/word" method="post">
+            <form action="/word" method="post" onsubmit="Scroll()">
                 <div>
                     <label for="wordInput">Enter a word</label>
                     <input type="text" name="word" id="enteredWordOutput" value="{{word}}"
                         oninput="onlyAlphabets(this)">
                     <br>
                 </div>
-                <input type="submit" value="Submit" onclick="Scroll()">
+                <input type="submit" value="Submit">
             </form>
             <form action="/reset" method="post">
                 <input type="submit" value="Reset">
