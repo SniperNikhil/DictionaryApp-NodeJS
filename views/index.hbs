@@ -296,7 +296,10 @@
     <script>
         function Scroll() {
             var element = document.getElementById("mean");
-            element.scrollTo({ behavior: 'smooth' });
+            if (element) {
+                // Use scrollIntoView for smoother scrolling
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
     </script>
 
